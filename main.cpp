@@ -17,9 +17,11 @@ string coz( string sifreliMetin,  string anahtar) {
 
 int main() {
     string metin, anahtar;
-
+cout<<"------------------------------------------------";
+cout<<"Sifreleme ve desifreleme programina hosgeldiniz!";
+cout<<"------------------------------------------------";
     
-    cout << "Şifrelenecek metni girin: ";
+    cout << "\nSifrelenecek metni girin: ";
     cin>>metin;
 
     cout << "Anahtar metni girin: ";
@@ -27,11 +29,11 @@ int main() {
 
     
     string sifreliMetin = sifrele(metin, anahtar);
-    cout << "Şifrelenmiş metin: " << sifreliMetin << endl;
+    cout << "Sifrelenmis metin: " << sifreliMetin << endl;
 
     
     string cozulmusMetin = coz(sifreliMetin, anahtar);
-    cout << "Deşifrelenmiş metin: " << cozulmusMetin << endl;
+    cout << "Desifrelenmis metin: " << cozulmusMetin << endl;
 
     return 0;
 }
