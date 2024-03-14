@@ -1,41 +1,62 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
-string sifrele( string metin, string anahtar) {
-    string sifreliMetin = metin;
-    for (int i = 0; i < metin.length(); ++i) {
-        sifreliMetin[i] = metin[i] ^ anahtar[i % anahtar.length()];
-    }
-    return sifreliMetin;
+
+string anahtarUret() {
+    string anahtar;
+    cout << "Lutfen anahtar giriniz (sadece buyuk harfler kullanin): ";
+    cin >> anahtar;
+    return anahtar;
 }
 
-string coz( string sifreliMetin,  string anahtar) {
-    return sifrele(sifreliMetin, anahtar);  
+
+string sifrele(string mesaj, string anahtar) {
+    string sifreliMesaj;
+    for (int i = 0; i < mesaj.length(); ++i) {
+        char sifreliKarakter = ((mesaj[i] - 'A') + (anahtar[i] - 'A')) % 26 + 'A'; // Şifreleme işlemi
+        sifreliMesaj += sifreliKarakter;
+    }
+    return sifreliMesaj;
+}
+
+
+string coz(string sifreliMesaj, string anahtar) {
+    string cozulmusMesaj;
+    for (int i = 0; i < sifreliMesaj.length(); ++i) {
+        char cozulmusKarakter = ((sifreliMesaj[i] - 'A') - (anahtar[i] - 'A') + 26) % 26 + 'A'; // Şifre çözme işlemi
+        cozulmusMesaj += cozulmusKarakter;
+    }
+    return cozulmusMesaj;
 }
 
 int main() {
-    string metin, anahtar;
-cout<<"------------------------------------------------";
-cout<<"Sifreleme ve desifreleme programina hosgeldiniz!";
-cout<<"------------------------------------------------";
     
-    cout << "\nSifrelenecek metni girin: ";
-    cin>>metin;
 
-    cout << "Anahtar metni girin: ";
-    cin>>anahtar;
+    string mesaj, anahtar;
 
     
-    string sifreliMetin = sifrele(metin, anahtar);
-    cout << "Sifrelenmis metin: " << sifreliMetin << endl;
+    cout << "Lutfen sifrelenecek mesaji giriniz (sadece buyuk harfler kullanin): ";
+    cin >> mesaj;
 
     
-    string cozulmusMetin = coz(sifreliMetin, anahtar);
-    cout << "Desifrelenmis metin: " << cozulmusMetin << endl;
+    do {
+        anahtar = anahtarUret();
+        if (anahtar.length() != mesaj.length()) {
+            cout << "Anahtar, mesaj ile aynı uzunlukta olmalıdır. Lütfen tekrar giriniz." << endl;
+        }
+    } while (anahtar.length() != mesaj.length());
+
+    
+    string sifreliMesaj = sifrele(mesaj, anahtar);
+    cout << "Sifreli Mesaj: " << sifreliMesaj << endl;
+
+    
+    string cozulmusMesaj = coz(sifreliMesaj, anahtar);
+    cout << "Cozulmus Mesaj: " << cozulmusMesaj << endl;
 
     return 0;
 }
-
-
